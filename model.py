@@ -1,0 +1,32 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Jul 24 09:45:52 2021
+
+@author: Shaikh Nawaj
+"""
+
+import pandas as pd
+from sklearn.linear_model import LogisticRegression
+
+# create df
+train = pd.read_csv('titanic.csv') # change file path
+
+# drop null values
+train.dropna(inplace=True)
+
+# features and target
+target = 'Survived'
+features = ['Pclass', 'Age', 'SibSp', 'Fare']
+
+# X matrix, y vector
+X = train[features]
+y = train[target]
+
+# model 
+model = LogisticRegression()
+model.fit(X, y)
+model.score(X, y)
+
+
+import pickle
+pickle.dump(model, open('model.pkl', 'wb'))
